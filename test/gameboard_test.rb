@@ -54,6 +54,7 @@ class GameBoardTest < MiniTest::Test
     gameboard = GameBoard.new
 
     assert_equal false, gameboard.check_nil("A1", "A3")
+    assert_equal false, gameboard.check_nil("A1", "A4")
   end
 
   def test_reverse_non_consecutive_two_boat_vertical
@@ -128,7 +129,34 @@ class GameBoardTest < MiniTest::Test
     assert_equal false, gameboard.cant_overlay_three_unit("A1","B1","B1")
   end
 
+  def test_cant_wrap_horizontally_two_unit
+
+    gameboard = GameBoard.new
+
+    assert_equal false, gameboard.cant_wrap_horizontally_two_unit("A4", "A1")
+    assert_equal false, gameboard.cant_wrap_horizontally_two_unit("B4", "B1")
+  end
+
+  def test_cant_wrap_vertically_two_unit
+    gameboard = GameBoard.new
+
+    assert_equal false, gameboard.cant_wrap_vertically_two_unit("D1", "A1")
+    assert_equal false, gameboard.cant_wrap_vertically_two_unit("D3", "A3")
+    assert_equal false, gameboard.cant_wrap_vertically_two_unit("D4", "A4")
+  end
+
+  def test_cant_wrap_horizontally_three_unit
+    gameboard = GameBoard.new
+
+    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("D4","D1", "D2")
+    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("A4","A1", "A2")
+  end
+
+  def test_cant_wrap_vertically_three_unit
+    gameboard = GameBoard.new
+
+    assert_equal false, gameboard.cant_wrap_vertically_three_unit("D1", "A1", "B1")
+  end
+
   
-
-
 end
