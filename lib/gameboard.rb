@@ -20,9 +20,6 @@ class GameBoard
     p "4| #{@board["D1"]}  | #{@board["D2"]}  | #{@board["D3"]}  | #{@board["D4"]}  |"
   end
 
-  # def assign_empty_to_space_on_board
-  #
-  # end
 
   def check_nil(space_1, space_2)
     if board[space_2] == nil || board[space_1] == nil
