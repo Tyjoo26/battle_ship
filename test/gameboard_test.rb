@@ -40,7 +40,7 @@ class GameBoardTest < MiniTest::Test
     gameboard.check_nil("D5", "D4")
 
     assert_nil  gameboard.board["D5"]
-    assert_equal "empty", gameboard.board["D4"]
+    assert_equal "", gameboard.board["D4"]
   end
 
 
@@ -158,5 +158,5 @@ class GameBoardTest < MiniTest::Test
     assert_equal false, gameboard.cant_wrap_vertically_three_unit("D1", "A1", "B1")
   end
 
-  
+
 end

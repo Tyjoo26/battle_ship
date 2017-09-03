@@ -11,6 +11,10 @@ class ComputerTest < MiniTest::Test
     assert_instance_of Computer, computer
   end
 
+  def test_computer_place_two_unit
+    computer = Computer.new
 
+    assert_equal true, computer.ai_place_two_unit
+  end
 
 end
