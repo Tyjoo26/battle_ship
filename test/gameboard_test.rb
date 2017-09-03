@@ -94,11 +94,12 @@ class GameBoardTest < MiniTest::Test
     gameboard = GameBoard.new
 
     gameboard.place_three_unit("B5", "B4", "B3")
-    assert_equal false, gameboard.check_nil_three_unit("B5","B4","B3")
+    refute gameboard.cant_place_outside_board("B5","B4","B3")
   end
 
   def test_cant_place_three_boat_diagonally
     gameboard = GameBoard.new
+
 
     assert_equal false, gameboard.cant_place_diagonally("A1", "B2", "C2")
   end
@@ -106,16 +107,28 @@ class GameBoardTest < MiniTest::Test
   def test_can_place_consecutive_vertical_three_boat
     gameboard = GameBoard.new
 
-    assert_equal true, gameboard.check_nil_three_unit("A1","B1","C1")
+    assert_equal true, gameboard.place_three_unit("A1","B1","C1")
   end
 
-  def cant_place_longer_than_three
+  def test_cant_place_longer_than_three
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.check_nil_three_unit("B1","B2","B4")
+    assert_equal false, gameboard.cant_place_longer_than_three("B1","B2","B4")
   end
 
+  def test_cant_overlay_two_unit
+    gameboard = GameBoard.new
 
+    assert_equal false, gameboard.cant_overlay_two_unit("A1", "A1")
+  end
+
+  def test_cant_overlay_three_unit
+    gameboard = GameBoard.new
+
+    assert_equal false, gameboard.cant_overlay_three_unit("A1","B1","B1")
+  end
+
+  
 
 
 end

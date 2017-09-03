@@ -81,6 +81,21 @@ def place_three_unit(space_1, space_2, space_3)
     end
   end
 
+  def cant_overlay_two_unit(space_1, space_2)
+    if space_1 == space_2
+      return false
+    end
+  end
+
+  def cant_overlay_three_unit(space_1, space_2, space_3)
+    if space_1 == space_2 || space_3
+      return false
+    elsif space_2 == space_1 || space_3
+      return false
+    else space_3 == space_1 || space_2
+      return false
+    end
+  end
 
 
 
