@@ -14,7 +14,7 @@ class ComputerTest < MiniTest::Test
   def test_computer_place_two_unit
     computer = Computer.new
 
-    assert_equal 2, computer.choose_second_spot_two_boat.count
+    assert_equal 2, computer.choose_second_spot.count
   end
 
   def test_computer_count_full_values
@@ -23,7 +23,12 @@ class ComputerTest < MiniTest::Test
     actual = computer.gameboard.board.values.count("full")
 
     assert_equal 2, actual
-    binding.pry
+  end
+
+  def test_computer_place_three_unit
+    computer = Computer.new
+
+    assert_equal 3, computer.choose_third_spot_three_boat.count
   end
 
 end

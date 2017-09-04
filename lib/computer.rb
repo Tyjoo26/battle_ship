@@ -10,11 +10,11 @@ class Computer
     @gameboard = GameBoard.new
   end
 
-  def chooses_first_spot_two_boat
+  def choose_first_spot
     @gameboard.board.keys.sample
   end
 
-  def board_second_space_two_boat
+  def board_second_space
     {"A1" => ["A2", "B1"], "A2" => ["A1", "A3", "B2"],
     "A3" => ["A2", "A4", "B3"], "A4" => ["A3", "B4"],
     "B1" => ["A1", "B2", "C1"], "B2" => ["A2", "B1", "B3", "C2"],
@@ -26,19 +26,42 @@ class Computer
     }
   end
 
-  def choose_second_spot_two_boat
-    a = board_second_space_two_boat[chooses_first_spot_two_boat]
+
+  def board_third_space
+      {["A1", "A2"] => ["A3"], ["A2", "A3"] => ["A1", "A4"],
+      ["A3", "A4"] => ["A2"], ["A1", "B1"] => ["C1"],
+      ["A2", "B2"] => ["C2"], ["A3", "B3"] => ["C3"],
+      ["A4", "B4"] => ["C4"], ["B1", "B2"] => ["B3"],
+      ["B2", "B3"] => ["B1", "B4"], ["B3", "B4"] => ["B2"],
+      ["B1", "C1"] => ["A1", "D1"], ["B2", "C2"] => ["A2", "D2"],
+      ["B3", "C3"] => ["A3", "D3"], ["B4", "C4"] => ["A4", "D4"],
+      ["C1", "C2"] => ["C3"], ["C2", "C3"] => ["C1", "C4"],
+      ["C3", "C4"] => ["C2"], ["C1", "D1"] => ["B1"],
+      ["C2", "D2"] => ["B2"], ["C3", "D3"] => ["B3"],
+      ["C4", "D4"] => ["B4"], ["D1", "D2"] => ["D3"],
+      ["D2", "D3"] => ["D1", "D4"], ["D3", "D4"] => ["D1"]
+      }
+  end
+
+
+  def choose_second_spot
+    a = board_second_space[choose_first_spot]
     array = []
-    array << chooses_first_spot_two_boat
+    array << choose_first_spot
     array << a
   end
 
   def change_grid_to_show_two_boat_placement
-    a = choose_second_spot_two_boat[0]
-    b = choose_second_spot_two_boat[1]
+    a = choose_second_spot[0]
+    b = choose_second_spot[1]
     @gameboard.board[a] = "full"
     @gameboard.board[b] = "full"
     @gameboard.board
+  end
+
+
+  def choose_third_spot_three_boat
+    a = board_third_space[choose_second_spot]
   end
 
 
