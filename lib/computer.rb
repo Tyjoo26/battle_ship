@@ -51,13 +51,14 @@ class Computer
     array = []
     array << x
     array << z
-    array.sort
-
+    array = array.sort
   end
 
   def change_grid_to_show_two_boat_placement
-    a = choose_second_spot[0]
-    b = choose_second_spot[1]
+    x = choose_second_spot
+    a = x[0]
+    b = x[1]
+    
     @gameboard.board[a] = "full"
     @gameboard.board[b] = "full"
     @gameboard.board
@@ -72,7 +73,12 @@ class Computer
     array << x
     array << z
     array = array.flatten.sort
+
   end
+
+
+
+
 
 
 end
