@@ -58,7 +58,6 @@ class Computer
     x = choose_second_spot
     a = x[0]
     b = x[1]
-    
     @gameboard.board[a] = "full"
     @gameboard.board[b] = "full"
     @gameboard.board
@@ -73,7 +72,18 @@ class Computer
     array << x
     array << z
     array = array.flatten.sort
+  end
 
+  def change_grid_to_show_all_boat_placement
+    change_grid_to_show_two_boat_placement
+    x = choose_third_spot_three_boat
+    a = x[0]
+    b = x[1]
+    c = x[2]
+    @gameboard.board[a] = "full"
+    @gameboard.board[b] = "full"
+    @gameboard.board[c] = "full"
+    @gameboard.board
   end
 
 
