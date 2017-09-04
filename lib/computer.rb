@@ -39,16 +39,20 @@ class Computer
       ["C3", "C4"] => ["C2"], ["C1", "D1"] => ["B1"],
       ["C2", "D2"] => ["B2"], ["C3", "D3"] => ["B3"],
       ["C4", "D4"] => ["B4"], ["D1", "D2"] => ["D3"],
-      ["D2", "D3"] => ["D1", "D4"], ["D3", "D4"] => ["D1"]
+      ["D2", "D3"] => ["D1", "D4"], ["D3", "D4"] => ["D2"]
       }
   end
 
 
   def choose_second_spot
-    a = board_second_space[choose_first_spot]
+    x = choose_first_spot
+    y = board_second_space[x]
+    z = y.sample
     array = []
-    array << choose_first_spot
-    array << a
+    array << x
+    array << z
+    array.sort
+
   end
 
   def change_grid_to_show_two_boat_placement
@@ -61,7 +65,13 @@ class Computer
 
 
   def choose_third_spot_three_boat
-    a = board_third_space[choose_second_spot]
+    x = choose_second_spot
+    y = board_third_space[x]
+    z = y.sample
+    array = []
+    array << x
+    array << z
+    array = array.flatten.sort
   end
 
 

@@ -2,7 +2,7 @@ require 'pry'
 
 class GameBoard
 
-  attr_reader :board
+  attr_accessor :board
 
   def initialize
     @board = {
