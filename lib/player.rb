@@ -26,10 +26,20 @@ class Player
   def validate_two_boat_coord
     if @board.cant_place_diagonally_two(convert_to_space_1, convert_to_space_2) == false
       invalid_coordinate_message
-    elsif @board.cant_wrap_horizontally_two_unit(convert_to_space_1, convert_to_space_2)
+    elsif @board.cant_wrap_horizontally_two_unit(convert_to_space_1, convert_to_space_2) == false
       invalid_coordinate_message
-    elsif @board.cant_wrap_vertically_two_unit(convert_to_space_1, convert_to_space_2)
-    elsif @board.check_nil(convert_to_space_1, convert_to_space_2)
+    elsif @board.cant_wrap_vertically_two_unit(convert_to_space_1, convert_to_space_2) == false
+      invalid_coordinate_message
+    elsif @board.check_nil(convert_to_space_1, convert_to_space_2) == false
+      invalid_coordinate_message
+    else @board.place_two_unit == true
+      get_input_three_unit_boat
+    end
+  end
+
+
+  def get_input_three_unit_boat
+
   end
 
 
