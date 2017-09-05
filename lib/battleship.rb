@@ -1,5 +1,14 @@
+require './lib/computer'
+require './lib/player'
+require './lib/gameboard'
+require 'pry'
+
 class BattleShip
 
+  def initialize
+    @player = Player.new
+    @comp = Computer.new
+  end
 
   def start_game
   welcome_message
@@ -33,8 +42,10 @@ class BattleShip
   end
 
   def initiate_game
-    #computer placement
+    @comp.change_grid_to_show_placement
+    computer_placement_message
     #display message saying ships are placed by computer
+    
     #player placement two boat
     #player placement three boat
     #computer shoots first
@@ -53,6 +64,9 @@ class BattleShip
 
 end
 
+  def computer_placement_message
+    p "I have laid out my ships on the grid.You now need to layout your two ships.The first is two units long and the second is three units long.The grid has A1 at the top left and D4 at the bottom right. Enter the squares for the two-unit ship:"
+  end
 
 
 

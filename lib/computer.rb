@@ -1,4 +1,5 @@
 require './lib/gameboard'
+require './lib/player'
 require 'pry'
 
 class Computer
@@ -92,6 +93,23 @@ class Computer
     @gameboard.board
   end
 
+  def fire_shot
+
+  end
+
+  def record_computer_shot_as_hit_or_miss
+
+  end
+
+  def update_health_if_hit
+
+  end
+
+  def winner?
+    until @health == 0
+
+    end
+  end
 
 
 
