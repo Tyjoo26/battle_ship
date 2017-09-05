@@ -46,4 +46,6 @@ class ComputerTest < MiniTest::Test
     assert_equal 5, actual
   end
 
+  
+
 end

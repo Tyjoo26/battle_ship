@@ -25,20 +25,20 @@ class Player
 
   def validate_two_boat_coord
     if @board.cant_place_diagonally_two(convert_to_space_1, convert_to_space_2) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_two_boat
     elsif @board.cant_wrap_horizontally_two_unit(convert_to_space_1, convert_to_space_2) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_two_boat
     elsif @board.cant_wrap_vertically_two_unit(convert_to_space_1, convert_to_space_2) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_two_boat
     elsif @board.check_nil(convert_to_space_1, convert_to_space_2) == false
       invalid_coordinate_message
     else @board.place_two_unit == true
-      get_input_three_unit_boat
+      get_input_three_unit_boat_two_boat
     end
   end
 
 
-  def get_input_three_unit_boat_and_convert
+  def convert_input_for_validation_three_boat
     user_input = gets.chomp
     user_input = user_input.split(" ")
   end
@@ -57,24 +57,33 @@ class Player
 
   def validate_two_boat_coord
     if @board.cant_place_longer_than_three(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     elsif @board.cant_overlay_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     elsif @board.cant_place_outside_board(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     elsif @board.cant_place_diagonally(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     elsif @board.cant_wrap_horizontally_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     elsif @board.cant_wrap_vertically_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message
+      invalid_coordinate_message_three_boat
     else @board.place_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == true
       @board
     end
   end
 
+  def invalid_coordinate_message_two_boat
+    p "Invalid coordinates, try again!"
+    convert_input_for_validation_two_boat
+  end
 
-  
+  def invalid_coordinate_message_three_boat
+    p "Invalid coordinates, try again!"
+    convert_input_for_validation_three_boat
+  end
+
+
 
 
 end
