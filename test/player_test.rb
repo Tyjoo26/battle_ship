@@ -11,7 +11,11 @@ class PlayerTest < MiniTest::Test
     assert_instance_of Player, player
   end
 
+  def test_it_has_winner_variable
+    player = Player.new
 
+    refute player.winner
+  end
 
 
 end
