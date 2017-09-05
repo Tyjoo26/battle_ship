@@ -11,6 +11,13 @@ class ComputerTest < MiniTest::Test
     assert_instance_of Computer, computer
   end
 
+  def test_it_has_winner_instance_variable
+    computer = Computer.new
+
+    refute  computer.winner
+  end
+  
+
   def test_computer_place_two_unit
     computer = Computer.new
 

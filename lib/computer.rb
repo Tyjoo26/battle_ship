@@ -2,7 +2,7 @@ require './lib/gameboard'
 
 class Computer
 
-  attr_reader :gameboard
+  attr_reader :gameboard, :winner
 
   def initialize
     @winner = false
@@ -64,7 +64,7 @@ class Computer
 
   def place_first_three_boat
     x = choose_two_boat
-    
+
   end
 
   # def place_first_space_three_boat
