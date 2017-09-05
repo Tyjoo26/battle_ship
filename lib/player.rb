@@ -38,9 +38,21 @@ class Player
   end
 
 
-  def get_input_three_unit_boat
-
+  def get_input_three_unit_boat_and_convert
+    user_input = gets.chomp
+    user_input = user_input.split(" ")
   end
 
+  def convert_to_space_1_for_three_boat
+    get_input_three_unit_boat_and_convert[0]
+  end
+
+  def convert_to_space_2_for_three_boat
+    get_input_three_unit_boat_and_convert[1]
+  end
+
+  def convert_to_space_3_for_three_boat
+    get_input_three_unit_boat_and_convert[2]
+  end
 
 end
