@@ -1,4 +1,5 @@
 require './lib/gameboard'
+require 'pry'
 
 class Computer
 
@@ -53,80 +54,46 @@ class Computer
     array = array.sort
   end
 
-  def change_grid_to_show_two_boat_placement
-    x = choose_two_boat
-    a = x[0]
-    b = x[1]
-    @gameboard.board[a] = "full"
-    @gameboard.board[b] = "full"
-    @gameboard.board
+
+
+  def place_spots_three_boat
+    a = choose_first_spot
+    b = board_second_space[a].sample
+    c = []
+    c << a
+    c << b
+    c = c.sort
+    d = board_third_space[c].sample
+    c << d
+    c = c.flatten.sort
   end
 
-  def place_first_three_boat
-    x = choose_two_boat
-
+  def validate_all_boat_coordinates
+      two = choose_two_boat
+      three = place_spots_three_boat
+      combined_coordinates = two + three
+      until combined_coordinates.uniq.count == 5
+        two = choose_two_boat
+        three = place_spots_three_boat
+        combined_coordinates = two + three
+      end
+      combined_coordinates
   end
 
-  # def place_first_space_three_boat
-  #   x = choose_first_spot
-  #   y = choose_two_boat
-  #   until choose_two_boat.include?(x) == false
-  #     place_first_space_three_boat
-  #   end
-  #     x
-  #   end
-  #
-  # def place_second_space_three_boat
-  #   y = board_second_space[place_first_space_three_boat].sample
-  #   until choose_two_boat.include?(y) == false
-  #     place_second_space_three_boat
-  #   end
-  #     array = []
-  #     array << place_first_space_three_boat
-  #     array << y
-  #     array = array.flatten.sort
-  #     binding.pry
-  # end
-  #
-  # def place_third_space_three_boat
-  #   z = board_third_space[place_second_space_three_boat]
-  #   z = z.sample
-  #   until choose_two_boat.include?(z) == false
-  #     place_third_space_three_boat
-  #   end
-  #     place_second_space_three_boat << z
-  #     binding.pry
-  # end
-
-
-  def place_three_boat_on_grid_with_two_boat
-    change_grid_to_show_two_boat_placement
-    x = place_third_space_three_boat
+  def change_grid_to_show_placement ## refactor ##
+    x = validate_all_boat_coordinates
     a = x[0]
     b = x[1]
     c = x[2]
+    d = x[3]
+    e = x[4]
     @gameboard.board[a] = "full"
     @gameboard.board[b] = "full"
     @gameboard.board[c] = "full"
+    @gameboard.board[d] = "full"
+    @gameboard.board[e] = "full"
     @gameboard.board
   end
-
-  # def check_if_two_boat_and_three_boat_overlap
-  #   !(choose_second_spot & choose_third_spot_three_boat).empty?
-  # end
-
-  def change_grid_to_show_all_boat_placement
-    change_grid_to_show_two_boat_placement
-    x = choose_third_spot_three_boat
-    a = x[0]
-    b = x[1]
-    c = x[2]
-    @gameboard.board[a] = "full"
-    @gameboard.board[b] = "full"
-    @gameboard.board[c] = "full"
-    @gameboard.board
-  end
-
 
 
 

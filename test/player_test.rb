@@ -29,6 +29,10 @@ class PlayerTest < MiniTest::Test
     assert_instance_of GameBoard, player.board
   end
 
+  def test_validation
+
+  end
+
 
 
 end

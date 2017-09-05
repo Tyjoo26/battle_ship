@@ -29,23 +29,21 @@ class ComputerTest < MiniTest::Test
     assert_equal 2, computer.choose_two_boat.count
   end
 
-  def test_computer_count_full_values_for_two_boat
+  def test_validate_boat_coordinates
     computer = Computer.new
-    computer.change_grid_to_show_two_boat_placement
-    actual = computer.gameboard.board.values.count("full")
 
-    assert_equal 2, actual
+    
   end
 
-
-  def test_computer_count_full_values_for_three_boat
+  def test_computer_count_full_values_for_two_boat
     computer = Computer.new
-    computer.place_three_boat_on_grid_with_two_boat
+    computer.change_grid_to_show_placement(["A1", "A2"], ["B1","B2", "B3"])
     actual = computer.gameboard.board.values.count("full")
 
     assert_equal 5, actual
   end
 
-  
+
+
 
 end
