@@ -15,25 +15,25 @@ class Player
     user_input = user_input.split(" ")
   end
 
-  def convert_to_space_1
+  def convert_to_space_1_two_boat
     convert_input_for_validation[0]
   end
 
-  def convert_to_space_2
+  def convert_to_space_2_two_boat
     conver_input_for_validation[1]
   end
 
   def validate_two_boat_coord
-    if @board.cant_place_diagonally_two(convert_to_space_1, convert_to_space_2) == false
+    if @board.cant_place_diagonally_two(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
       invalid_coordinate_message_two_boat
-    elsif @board.cant_wrap_horizontally_two_unit(convert_to_space_1, convert_to_space_2) == false
+    elsif @board.cant_wrap_horizontally_two_unit(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
       invalid_coordinate_message_two_boat
-    elsif @board.cant_wrap_vertically_two_unit(convert_to_space_1, convert_to_space_2) == false
+    elsif @board.cant_wrap_vertically_two_unit(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
       invalid_coordinate_message_two_boat
-    elsif @board.check_nil(convert_to_space_1, convert_to_space_2) == false
+    elsif @board.check_nil(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
       invalid_coordinate_message
     else @board.place_two_unit == true
-      !!!!get_input_three_unit_boat_two_boat!!!!#need to figure out workflow
+      !!!!get_input_three_unit_boat!!!!#need to figure out workflow
     end
   end
 

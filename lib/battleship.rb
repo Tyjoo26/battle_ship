@@ -33,7 +33,20 @@ class BattleShip
   end
 
   def initiate_game
-    
+    #computer placement
+    #display message saying ships are placed by computer
+    #player placement two boat
+    #player placement three boat
+    #computer shoots first
+    #players board changes
+    #display updated board
+    #display message hit or miss
+    #player shoots after
+    #computer board changes
+    #display message hit or miss
+    #after computer or player shoots, program evaluates, update display
+    #sequence repeats until win or loss
+
   end
 
 

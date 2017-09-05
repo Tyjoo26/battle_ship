@@ -56,7 +56,7 @@ class Computer
 
 
 
-  def place_spots_three_boat
+  def choose_spot_three_boat
     a = choose_first_spot
     b = board_second_space[a].sample
     c = []
@@ -70,30 +70,28 @@ class Computer
 
   def validate_all_boat_coordinates
       two = choose_two_boat
-      three = place_spots_three_boat
+      three = choose_spot_three_boat
       combined_coordinates = two + three
       until combined_coordinates.uniq.count == 5
         two = choose_two_boat
-        three = place_spots_three_boat
+        three = choose_spot_three_boat
         combined_coordinates = two + three
       end
       combined_coordinates
   end
 
-  def change_grid_to_show_placement ## refactor ##
+  def change_grid_to_show_placement ## refactor ## #look at iterating through array to specify which coordinates are two_unit_boat and three_unit_boat
     x = validate_all_boat_coordinates
-    a = x[0]
-    b = x[1]
-    c = x[2]
-    d = x[3]
-    e = x[4]
-    @gameboard.board[a] = "full"
-    @gameboard.board[b] = "full"
-    @gameboard.board[c] = "full"
-    @gameboard.board[d] = "full"
-    @gameboard.board[e] = "full"
+    x.each_with_index do |element, index|
+      if index < 2
+        @gameboard.board[element] = "two"
+      else
+        @gameboard.board[element] = "three"
+      end
+    end
     @gameboard.board
   end
+
 
 
 
