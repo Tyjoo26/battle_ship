@@ -24,8 +24,6 @@ class GameBoard
   def check_nil(space_1, space_2)
     if board[space_2] == nil || board[space_1] == nil
       return false
-    else
-      place_two_unit(space_1, space_2)
     end
   end
 

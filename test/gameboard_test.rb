@@ -12,7 +12,7 @@ class GameBoardTest < MiniTest::Test
 
   def test_can_place_two_unit_ship_horizontal
     gameboard = GameBoard.new
-    gameboard.check_nil("A1", "A2")
+    gameboard.place_two_unit("A1", "A2")
 
     assert_equal "full", gameboard.board["A1"]
     assert_equal "full", gameboard.board["A2"]
@@ -20,7 +20,7 @@ class GameBoardTest < MiniTest::Test
 
   def test_can_validate_two_unit_ship_vertical
     gameboard = GameBoard.new
-    gameboard.check_nil("A1", "B1")
+    gameboard.place_two_unit("A1", "B1")
 
     assert_equal "full", gameboard.board["A1"]
     assert_equal "full", gameboard.board["B1"]
@@ -47,26 +47,26 @@ class GameBoardTest < MiniTest::Test
   def test_cant_set_in_non_consecutive_vertical_spots
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.check_nil("A1", "C1")
+    assert_equal false, gameboard.place_two_unit("A1", "C1")
   end
 
   def test_non_consecutive_horizontal_spot_two_boat
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.check_nil("A1", "A3")
-    assert_equal false, gameboard.check_nil("A1", "A4")
+    assert_equal false, gameboard.place_two_unit("A1", "A3")
+    assert_equal false, gameboard.place_two_unit("A1", "A4")
   end
 
   def test_reverse_non_consecutive_two_boat_vertical
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.check_nil("D1", "B1")
+    assert_equal false, gameboard.place_two_unit("D1", "B1")
   end
 
   def test_reverse_non_consecutive_two_boat_horizontal
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.check_nil("D4", "D2")
+    assert_equal false, gameboard.place_two_unit("D4", "D2")
   end
 
   def test_cant_place_two_unit_diagonally
