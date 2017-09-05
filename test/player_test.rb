@@ -23,5 +23,11 @@ class PlayerTest < MiniTest::Test
     assert_equal 5, player.health
   end
 
+  def test_it_has_a_gameboard
+    player = Player.new
+
+    assert_instance_of GameBoard, player.board
+  end
+
 
 end
