@@ -17,5 +17,11 @@ class PlayerTest < MiniTest::Test
     refute player.winner
   end
 
+  def test_it_has_health_variable
+    player = Player.new
+
+    assert_equal 5, player.health
+  end
+
 
 end
