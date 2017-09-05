@@ -44,18 +44,17 @@ class Computer
   end
 
 
-  def choose_second_spot
+  def choose_two_boat
     x = choose_first_spot
-    y = board_second_space[x]
-    z = y.sample
+    y = board_second_space[x].sample
     array = []
     array << x
-    array << z
+    array << y
     array = array.sort
   end
 
   def change_grid_to_show_two_boat_placement
-    x = choose_second_spot
+    x = choose_two_boat
     a = x[0]
     b = x[1]
     @gameboard.board[a] = "full"
@@ -63,16 +62,58 @@ class Computer
     @gameboard.board
   end
 
-
-  def choose_third_spot_three_boat
-    x = choose_second_spot
-    y = board_third_space[x]
-    z = y.sample
-    array = []
-    array << x
-    array << z
-    array = array.flatten.sort
+  def place_first_three_boat
+    x = choose_two_boat
+    
   end
+
+  # def place_first_space_three_boat
+  #   x = choose_first_spot
+  #   y = choose_two_boat
+  #   until choose_two_boat.include?(x) == false
+  #     place_first_space_three_boat
+  #   end
+  #     x
+  #   end
+  #
+  # def place_second_space_three_boat
+  #   y = board_second_space[place_first_space_three_boat].sample
+  #   until choose_two_boat.include?(y) == false
+  #     place_second_space_three_boat
+  #   end
+  #     array = []
+  #     array << place_first_space_three_boat
+  #     array << y
+  #     array = array.flatten.sort
+  #     binding.pry
+  # end
+  #
+  # def place_third_space_three_boat
+  #   z = board_third_space[place_second_space_three_boat]
+  #   z = z.sample
+  #   until choose_two_boat.include?(z) == false
+  #     place_third_space_three_boat
+  #   end
+  #     place_second_space_three_boat << z
+  #     binding.pry
+  # end
+
+
+  def place_three_boat_on_grid_with_two_boat
+    change_grid_to_show_two_boat_placement
+    x = place_third_space_three_boat
+    a = x[0]
+    b = x[1]
+    c = x[2]
+    @gameboard.board[a] = "full"
+    @gameboard.board[b] = "full"
+    @gameboard.board[c] = "full"
+    @gameboard.board
+  end
+
+  # def check_if_two_boat_and_three_boat_overlap
+  #   !(choose_second_spot & choose_third_spot_three_boat).empty?
+  # end
 
   def change_grid_to_show_all_boat_placement
     change_grid_to_show_two_boat_placement
