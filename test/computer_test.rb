@@ -16,7 +16,12 @@ class ComputerTest < MiniTest::Test
 
     refute  computer.winner
   end
-  
+
+  def test_it_has_health
+    computer = Computer.new
+
+    assert_equal 5, computer.health
+  end
 
   def test_computer_place_two_unit
     computer = Computer.new

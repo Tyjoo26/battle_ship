@@ -2,7 +2,7 @@ require './lib/gameboard'
 
 class Computer
 
-  attr_reader :gameboard, :winner
+  attr_reader :gameboard, :winner, :health
 
   def initialize
     @winner = false
