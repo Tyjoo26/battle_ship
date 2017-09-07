@@ -5,14 +5,13 @@ require 'pry'
 
 class BattleShip
 
-  attr_accessor :player, :comp, :gameboard, :input, :player
+  attr_accessor :player, :comp, :gameboard, :input
 
   def initialize
     @player = Player.new
     @comp = Computer.new
     @gameboard = GameBoard.new
     @input = input
-    @player = Player.new
   end
 
   def start_game
@@ -50,8 +49,8 @@ class BattleShip
     @comp.validate_all_boat_coordinates
     computer_placement_message
     convert_input_for_validation_two_boat
-    #player placement three boat
-    #computer shoots first
+    @comp.record_player_shot_as_hit_or_miss
+       #computer shoots first
     #players board changes
     #display updated board
     #display message hit or miss
@@ -149,7 +148,6 @@ class BattleShip
     destroyer_first
     destroyer_second
     destroyer_third
-    validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third)
     until  validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third) == true
       convert_input_for_validation_three_boat
     end
@@ -221,21 +219,26 @@ class BattleShip
       invalid_coordinate_message_three_boat
     else
       print "You've successfully placed your ships! Now the computer will shoot first!"
-      computer_shoots_first
+      update_game_board_to_reflect_placement
+      comp.fire_shot_at_player(@player)
     end
   end
 
 
-  
+  def update_game_board_to_reflect_placement
+    @player.board.board[patrol_first] = "two"
+    @player.board.board[patrol_second] = "two"
+    @player.board.board[destroyer_first] = "three"
+    @player.board.board[destroyer_second] = "three"
+    @player.board.board[destroyer_third] = "three"
+  end
 
   def invalid_coordinate_message_three_boat
     p "Invalid coordinates! Please try again!"
     convert_input_for_validation_three_boat
   end
 
-  def computer_shoots_first
 
-  end
 
   def computer_placement_message
     p "I have laid out my ships on the grid.You now need to layout your two ships.The first is two units long and the second is three units long.The grid has A1 at the top left and D4 at the bottom right. Enter the squares for the two-unit ship:"

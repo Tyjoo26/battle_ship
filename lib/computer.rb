@@ -97,16 +97,16 @@ class Computer
   #    @gameboard.print_horizontal_headers
   # end
 
-  def fire_shot
-    player = Player.new
-    player.board.key.sample
+
+  def fire_shot_at_player(player)
+    player.board.board.keys.sample
   end
 
   def record_computer_shot_as_hit_or_miss(player)
-    if player.board[fire_shot] == " two " || player.board[fire_shot] == " three"
-      player.board[fire_shot] = "  H  "
+    if player.board[fire_shot_at_player] == " two " || player.board[fire_shot_at_player] == " three"
+      player.board[fire_shot_at_player] = "  H  "
     else
-      player.board[fire_shot] = "  M  "
+      player.board[fire_shot_at_player] = "  M  "
     end
   end
 
