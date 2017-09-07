@@ -49,17 +49,9 @@ class BattleShip
     @comp.validate_all_boat_coordinates
     computer_placement_message
     convert_input_for_validation_two_boat
-    @comp.record_player_shot_as_hit_or_miss
-       #computer shoots first
-    #players board changes
-    #display updated board
-    #display message hit or miss
-    #player shoots after
-    #computer board changes
-    #display message hit or miss
-    #after computer or player shoots, program evaluates, update display
-    #sequence repeats until win or loss
-
+    update_game_board_to_reflect_placement
+    @comp.fire_shot_at_player(player.board)
+    @comp.record_player_shot_as_hit_or_miss(player.board)
   end
 
 
@@ -219,8 +211,6 @@ class BattleShip
       invalid_coordinate_message_three_boat
     else
       print "You've successfully placed your ships! Now the computer will shoot first!"
-      update_game_board_to_reflect_placement
-      comp.fire_shot_at_player(@player)
     end
   end
 

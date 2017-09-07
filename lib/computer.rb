@@ -83,21 +83,6 @@ class Computer
   end
 
 
-
-  # def change_grid_to_show_placement
-  #   x = validate_all_boat_coordinates
-  #   x.each_with_index do |element, index|
-  #     if index < 2
-  #       @gameboard.board[element] = "two"
-  #     else
-  #       @gameboard.board[element] = "three"
-  #     end
-  #   end
-  #    @gameboard.board
-  #    @gameboard.print_horizontal_headers
-  # end
-
-
   def fire_shot_at_player(player)
     player.board.board.keys.sample
   end
@@ -105,14 +90,18 @@ class Computer
   def record_computer_shot_as_hit_or_miss(player)
     if player.board[fire_shot_at_player] == " two " || player.board[fire_shot_at_player] == " three"
       player.board[fire_shot_at_player] = "  H  "
+      p "Player has scored a hit!"
     else
       player.board[fire_shot_at_player] = "  M  "
+      p "Boo! You missed!"
     end
   end
 
-  def is_patrol_ship_sunk?
+  def is_ship_sunk?
     if player.board.values.count("two") == 0
       p "Patrol boat is destroyed!"
+    elsif player.board.values.count("three") == 0
+      p "Destroyer boat is destroyed"
     end
   end
 

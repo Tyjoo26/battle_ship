@@ -1,4 +1,4 @@
-require 'pry'
+
 
 class GameBoard
 
@@ -155,13 +155,7 @@ def place_three_unit(destroyer_first, destroyer_second, destroyer_third)
     end
   end
 
-  # def destroyer_cant_overlap_with_patrol(patrol_first, patrol_second, destroyer_first, destroyer_second, destroyer_third)
-  #   if patrol_first == destroyer_first || patrol_first == destroyer_second || patrol_first == destroyer_third
-  #     return false
-  #   else patrol_second == destroyer_first || patrol_second == destroyer_second || patrol_second == destroyer_third
-  #     return false
-  #   end
-  # end
+
 
 
 end

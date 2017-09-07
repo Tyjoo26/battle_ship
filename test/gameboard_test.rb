@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/gameboard.rb'
-require 'pry'
+
 
 class GameBoardTest < MiniTest::Test
   def test_it_exist

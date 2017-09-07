@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/gameboard'
 require './lib/player'
-require 'pry'
+
 
 class PlayerTest < MiniTest::Test
   def test_it_exist
@@ -29,9 +29,7 @@ class PlayerTest < MiniTest::Test
     assert_instance_of GameBoard, player.board
   end
 
-  def test_validation
 
-  end
 
 
 
