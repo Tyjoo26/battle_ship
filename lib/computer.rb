@@ -4,7 +4,8 @@ require 'pry'
 
 class Computer
 
-  attr_reader :gameboard, :winner, :health
+  attr_reader  :winner, :health
+  attr_accessor :gameboard
 
   def initialize
     @winner = false
@@ -81,33 +82,49 @@ class Computer
       combined_coordinates
   end
 
-  def change_grid_to_show_placement ## refactor ## #look at iterating through array to specify which coordinates are two_unit_boat and three_unit_boat
-    x = validate_all_boat_coordinates
-    x.each_with_index do |element, index|
-      if index < 2
-        @gameboard.board[element] = "two"
-      else
-        @gameboard.board[element] = "three"
-      end
-    end
-    @gameboard.board
-  end
+
+  # def change_grid_to_show_placement
+  #   x = validate_all_boat_coordinates
+  #   x.each_with_index do |element, index|
+  #     if index < 2
+  #       @gameboard.board[element] = "two"
+  #     else
+  #       @gameboard.board[element] = "three"
+  #     end
+  #   end
+  #    @gameboard.board
+  #    @gameboard.print_horizontal_headers
+  # end
 
   def fire_shot
-
+    player = Player.new
+    player.board.key.sample
   end
 
-  def record_computer_shot_as_hit_or_miss
-
+  def record_computer_shot_as_hit_or_miss(player)
+    if player.board[fire_shot] == " two " || player.board[fire_shot] == " three"
+      player.board[fire_shot] = "  H  "
+    else
+      player.board[fire_shot] = "  M  "
+    end
   end
 
-  def update_health_if_hit
-
+  def is_patrol_ship_sunk?
+    if player.board.values.count("two") == 0
+      p "Patrol boat is destroyed!"
+    end
   end
+
+  def is_destroyer_ship_sunk?
+    if player.board.values.count("three") == 0
+    p "Destroyer boat is destroyed"
+    end
+  end
+
 
   def winner?
-    until @health == 0
-
+    if player.board.values.count("two") && player.board.values.count("three") == 0
+      p "Computer has won the game! Go home and CRY!"
     end
   end
 

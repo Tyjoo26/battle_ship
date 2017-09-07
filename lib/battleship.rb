@@ -5,9 +5,14 @@ require 'pry'
 
 class BattleShip
 
+  attr_accessor :player, :comp, :gameboard, :input, :player
+
   def initialize
     @player = Player.new
     @comp = Computer.new
+    @gameboard = GameBoard.new
+    @input = input
+    @player = Player.new
   end
 
   def start_game
@@ -44,12 +49,7 @@ class BattleShip
   def initiate_game
     @comp.change_grid_to_show_placement
     computer_placement_message
-    #display message saying ships are placed by computer
     convert_input_for_validation_two_boat
-    validate_two_boat_coord
-    validate_three_boat_coord
-    #player placement two boat
-
     #player placement three boat
     #computer shoots first
     #players board changes
@@ -64,69 +64,181 @@ class BattleShip
   end
 
 
-  def computer_placement_message
-    p "I have laid out my ships on the grid.You now need to layout your two ships.The first is two units long and the second is three units long.The grid has A1 at the top left and D4 at the bottom right. Enter the squares for the two-unit ship:"
-  end
-
   def convert_input_for_validation_two_boat
     user_input = gets.chomp
-    user_input = user_input.split(" ")
-  end
-
-  def convert_to_space_1_two_boat
-    convert_input_for_validation[0]
-  end
-
-  def convert_to_space_2_two_boat
-    conver_input_for_validation[1]
-  end
-
-  def validate_two_boat_coord
-    if @player.board.cant_place_diagonally_two(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false || @player.board.cant_wrap_horizontally_two_unit(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
-      invalid_coordinate_message_two_boat
-    elsif @player.board.cant_wrap_vertically_two_unit(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false || @player.board.check_nil(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == false
-      invalid_coordinate_message_two_boat
-    else @player.board.place_two_unit(convert_to_space_1_two_boat, convert_to_space_2_two_boat) == true
-      convert_input_for_validation_three_boat
+    @input = user_input.split(" ").sort
+    patrol_first
+    patrol_second
+    validate_two_boat_diagonally(patrol_first, patrol_second)
+    until validate_two_boat_diagonally == true
+      convert_input_for_validation_two_boat
     end
+  end
+
+
+  def patrol_first
+    @input[0]
+  end
+
+  def patrol_second
+    @input[1]
+  end
+
+  def validate_two_boat_diagonally(patrol_first, patrol_second)
+    if @gameboard.cant_place_diagonally_two(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      validate_two_boat_cant_overlay(patrol_first, patrol_second)
+    end
+  end
+
+  def validate_two_boat_cant_overlay(patrol_first, patrol_second)
+    if @gameboard.cant_overlay_two_unit(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      validate_two_boat_cant_wrap_horizontally(patrol_first, patrol_second)
+    end
+  end
+
+  def validate_two_boat_cant_wrap_horizontally(patrol_first, patrol_second)
+    if @gameboard.cant_wrap_horizontally_two_unit(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      validate_two_boat_cant_wrap_vertically(patrol_first, patrol_second)
+    end
+  end
+
+  def validate_two_boat_cant_wrap_vertically(patrol_first, patrol_second)
+    if @gameboard.cant_wrap_vertically_two_unit(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      validate_two_boat_check_nil(patrol_first, patrol_second)
+    end
+  end
+
+  def validate_two_boat_check_nil(patrol_first, patrol_second)
+    if @gameboard.check_nil(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      validate_two_boat(patrol_first, patrol_second)
+    end
+  end
+
+  def validate_two_boat(patrol_first, patrol_second)
+    if @gameboard.place_two_unit(patrol_first, patrol_second) == false
+      invalid_coordinate_message_two_boat
+    else
+      success_two_boat_placement_message
+    end
+  end
+
+  def invalid_coordinate_message_two_boat
+    p "Invalid coordinates! Please try again!"
+    convert_input_for_validation_two_boat
+  end
+
+  def success_two_boat_placement_message
+    p "Great! You've placed your patrol boat successfully! Now, input three valid coordinates to place your destroyer!"
+    convert_input_for_validation_three_boat
   end
 
   def convert_input_for_validation_three_boat
     user_input = gets.chomp
-    user_input = user_input.split(" ")
+    @input = user_input.split(" ").sort
+    destroyer_first
+    destroyer_second
+    destroyer_third
+    until validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third) == true
+      convert_input_for_validation_three_boat
+    end
   end
 
-  def convert_to_space_1_for_three_boat
-    get_input_three_unit_boat_and_convert[0]
+  def destroyer_first
+    @input[0]
   end
 
-  def convert_to_space_2_for_three_boat
-    get_input_three_unit_boat_and_convert[1]
+  def destroyer_second
+    @input[1]
   end
 
-  def convert_to_space_3_for_three_boat
-    get_input_three_unit_boat_and_convert[2]
+  def destroyer_third
+    @input[2]
   end
 
-  def validate_three_boat_coord
-    if @board.cant_place_longer_than_three(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
+  def validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_place_longer_than_three(destroyer_first, destroyer_second,destroyer_third) == false
       invalid_coordinate_message_three_boat
-    elsif @board.cant_overlay_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
+    else
+      validate_destroyer_overlay(destroyer_first, destroyer_second, destroyer_third)
+    end
+  end
+
+  def validate_destroyer_overlay(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_overlay_three_unit(destroyer_first, destroyer_second, destroyer_third) == false
       invalid_coordinate_message_three_boat
-    elsif @board.cant_place_outside_board(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message_three_boat
-    elsif @board.cant_place_diagonally(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message_three_boat
-    elsif @board.cant_wrap_horizontally_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message_three_boat
-    elsif @board.cant_wrap_vertically_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == false
-      invalid_coordinate_message_three_boat
-    else @board.place_three_unit(convert_to_space_1_for_three_boat, convert_to_space_2_for_three_boat,convert_to_space_3_for_three_boat) == true
-      !!!!NEED TO FIGURE OUT WORKFLOW!!!!
+    else
+      validate_three_boat_coord_outside_board(destroyer_first, destroyer_second, destroyer_third)
     end
   end
 
 
+  def validate_three_boat_coord_outside_board(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_place_outside_board(destroyer_first, destroyer_second, destroyer_third) == false
+      invalid_coordinate_message_three_boat
+    else
+      validate_diagonally_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    end
+  end
+
+  def validate_diagonally_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_place_diagonally(destroyer_first, destroyer_second,destroyer_third) == false
+      invalid_coordinate_message_three_boat
+    else
+      validate_wrap_horizontally_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    end
+  end
+
+  def validate_wrap_horizontally_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_wrap_horizontally_three_unit(destroyer_first, destroyer_second, destroyer_third) == false
+      invalid_coordinate_message_three_boat
+    else
+      validate_wrap_vertically_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    end
+  end
+
+  def validate_wrap_vertically_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.cant_wrap_vertically_three_unit(destroyer_first, destroyer_second, destroyer_third) == false
+      invalid_coordinate_message_three_boat
+    else
+      validate_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    end
+  end
+
+  def validate_destroyer(destroyer_first, destroyer_second, destroyer_third)
+    if @gameboard.place_three_unit(destroyer_first, destroyer_second, destroyer_third) == false
+      invalid_coordinate_message_three_boat
+    else
+      successful_placement_of_ships
+    end
+  end
+
+  def successful_placement_of_ships
+    p "You've successfully placed your ships! Now the computer will shoot first!"
+    computer_shoots_first
+  end
+
+  def invalid_coordinate_message_three_boat
+    p "Invalid coordinates! Please try again!"
+    convert_input_for_validation_three_boat
+  end
+
+  def computer_shoots_first
+
+  end
+
+  def computer_placement_message
+    p "I have laid out my ships on the grid.You now need to layout your two ships.The first is two units long and the second is three units long.The grid has A1 at the top left and D4 at the bottom right. Enter the squares for the two-unit ship:"
+  end
 end
 
 

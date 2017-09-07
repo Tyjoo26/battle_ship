@@ -156,6 +156,7 @@ class GameBoardTest < MiniTest::Test
     gameboard = GameBoard.new
 
     assert_equal false, gameboard.cant_wrap_vertically_three_unit("D1", "A1", "B1")
+
   end
 
 

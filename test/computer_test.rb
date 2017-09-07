@@ -30,13 +30,10 @@ class ComputerTest < MiniTest::Test
   end
 
 
-  def test_computer_count_full_values_for_two_boat
+  def test_computer_count_placed_keys
     computer = Computer.new
-    computer.change_grid_to_show_placement
-    actual = computer.gameboard.board.values.count("two")
-    assert_equal 2, actual
-    actual = computer.gameboard.board.values.count("three")
-    assert_equal 3, actual 
+
+    assert_equal 5, computer.validate_all_boat_coordinates.count
   end
 
 

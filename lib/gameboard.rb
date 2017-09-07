@@ -21,39 +21,73 @@ class GameBoard
   end
 
 
-  def check_nil(space_1, space_2)
-    if board[space_2] == nil || board[space_1] == nil
+  def check_nil(two_boat_first, two_boat_second)
+    if board[two_boat_second] == nil || board[two_boat_first] == nil
       return false
     end
   end
 
-  def cant_place_diagonally_two(space_1, space_2)
+  def cant_place_diagonally_two(two_boat_first, two_boat_second)
+    a = two_boat_first.split(//)[1].to_i
+    b = two_boat_second.split(//)[1].to_i
+
+    x = two_boat_first.split(//)[0].ord
+    y = two_boat_second.split(//)[0].ord
+    if a == b || x == y
+      return true
+    else
+      false
+    end
+  end
+
+  def cant_overlay_two_unit(two_boat_first, two_boat_second)
+    if two_boat_first == two_boat_second || two_boat_second == two_boat_first
+      return false
+    end
+  end
+
+  def cant_wrap_vertically_two_unit(space_1, space_2)
+    a = space_1.split(//)[0].ord
+    b = space_2.split(//)[0].ord
+    if a - b == 3
+      return false
+    end
+  end
+
+  def cant_wrap_horizontally_two_unit(space_1, space_2)
     a = space_1.split(//)[1].to_i
     b = space_2.split(//)[1].to_i
-    if a != b
-      return false
+    if a - b == 3
+       return false
     end
   end
 
-  def cant_overlay_two_unit(space_1, space_2)
-    if space_1 == space_2 || space_2 == space_1
-      return false
+  def cant_place_diagonally_two(two_boat_first, two_boat_second)
+    a = two_boat_first.split(//)[1].to_i
+    b = two_boat_second.split(//)[1].to_i
+
+    x = two_boat_first.split(//)[0].ord
+    y = two_boat_second.split(//)[0].ord
+    if a == b || x == y
+      return true
+    else
+      false
     end
   end
 
-  def place_two_unit(space_1, space_2)
-    a = space_1.split(//)[1].to_i
-    b = space_2.split(//)[1].to_i
+  def place_two_unit(two_boat_first, two_boat_second)
+    a = two_boat_first.split(//)[1].to_i
+    b = two_boat_second.split(//)[1].to_i
 
-    x = space_1.split(//)[0].ord
-    y = space_2.split(//)[0].ord
+    x = two_boat_first.split(//)[0].ord
+    y = two_boat_second.split(//)[0].ord
 
 
     if b - a > 1 || a - b > 1 || x - y > 1 || y - x > 1
       return false
     else
-      board[space_1] = "full"
-      board[space_2] = "full"
+      board[two_boat_first] = "full"
+      board[two_boat_second] = "full"
       true
     end
   end
@@ -76,10 +110,18 @@ def place_three_unit(space_1, space_2, space_3)
     b = space_2.split(//)[1].to_i
     c = space_3.split(//)[1].to_i
 
-    if a != b
-      return false
+    x = space_1.split(//)[0].ord
+    y = space_2.split(//)[0].ord
+    z = space_3.split(//)[0].ord
+
+    if a == b && b == c || x == y && y == z
+      return true
+    else
+      false
     end
   end
+
+
 
   def cant_place_longer_than_three(space_1, space_2, space_3)
     a = space_1.split(//)[1].to_i
@@ -91,43 +133,27 @@ def place_three_unit(space_1, space_2, space_3)
   end
 
   def cant_overlay_three_unit(space_1, space_2, space_3)
-    if space_1 == space_2 || space_3
+    if space_1 == space_2 || space_1 == space_3
       return false
-    elsif space_2 == space_1 || space_3
+    elsif space_2 == space_1 || space_2 == space_3
       return false
-    else space_3 == space_1 || space_2
+    else space_3 == space_1 || space_3 == space_2
       return false
-    end
-  end
-
-  def cant_wrap_horizontally_two_unit(space_1, space_2)
-    a = space_1.split(//)[1].to_i
-    b = space_2.split(//)[1].to_i
-    if a - b == 3
-       return false
     end
   end
 
   def cant_wrap_horizontally_three_unit(space_1, space_2, space_3)
     a = space_1.split(//)[1].to_i
     b = space_3.split(//)[1].to_i
-    if a - b == 2
+    if a - b > 2 || b - a > 2
        return false
-    end
-  end
-
-  def cant_wrap_vertically_two_unit(space_1, space_2)
-    a = space_1.split(//)[0].ord
-    b = space_2.split(//)[0].ord
-    if a - b == 3
-      return false
     end
   end
 
   def cant_wrap_vertically_three_unit(space_1, space_2, space_3)
     a = space_1.split(//)[0].ord
     b = space_3.split(//)[0].ord
-    if a - b == 2
+    if a - b > 2 || b - a > 2
       return false
     end
   end
@@ -137,4 +163,3 @@ def place_three_unit(space_1, space_2, space_3)
 
 end
 gameboard = GameBoard.new
-gameboard.print_horizontal_headers
