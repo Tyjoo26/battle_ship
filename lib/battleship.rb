@@ -34,7 +34,7 @@ class BattleShip
   end
 
   def instructions
-    p "You will need to place your ships on a grid by typing in coordinates(eg: A1, A2). Your ship cannot be placed outside of the grid, diagonally, or overlapping. You and the computer will alternate turns taking guesses at a game grid to sink the opposings players ship. Do you want to (p)lay or (q)uit?"
+    p "You will need to place your ships on a grid by typing in coordinates(eg: A1, A2). Your ship cannot be placed outside of the grid, diagonally, or overlapping. You and the computer will alternate turns taking guesses at a game grid to sink the opposings players ships. Do you want to (p)lay or (q)uit?"
     user_input = gets.chomp.downcase
     if user_input == "p"
       initiate_game
@@ -47,7 +47,7 @@ class BattleShip
   end
 
   def initiate_game
-    @comp.change_grid_to_show_placement
+    @comp.validate_all_boat_coordinates
     computer_placement_message
     convert_input_for_validation_two_boat
     #player placement three boat
@@ -140,6 +140,7 @@ class BattleShip
   def success_two_boat_placement_message
     p "Great! You've placed your patrol boat successfully! Now, input three valid coordinates to place your destroyer!"
     convert_input_for_validation_three_boat
+
   end
 
   def convert_input_for_validation_three_boat
@@ -148,7 +149,8 @@ class BattleShip
     destroyer_first
     destroyer_second
     destroyer_third
-    until validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third) == true
+    validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third)
+    until  validate_destroyer_longer_than_three_consecutive_spaces(destroyer_first, destroyer_second, destroyer_third) == true
       convert_input_for_validation_three_boat
     end
   end
@@ -218,14 +220,13 @@ class BattleShip
     if @gameboard.place_three_unit(destroyer_first, destroyer_second, destroyer_third) == false
       invalid_coordinate_message_three_boat
     else
-      successful_placement_of_ships
+      print "You've successfully placed your ships! Now the computer will shoot first!"
+      computer_shoots_first
     end
   end
 
-  def successful_placement_of_ships
-    p "You've successfully placed your ships! Now the computer will shoot first!"
-    computer_shoots_first
-  end
+
+  
 
   def invalid_coordinate_message_three_boat
     p "Invalid coordinates! Please try again!"

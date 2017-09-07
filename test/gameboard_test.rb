@@ -115,6 +115,7 @@ class GameBoardTest < MiniTest::Test
     gameboard = GameBoard.new
 
     assert_equal false, gameboard.cant_place_longer_than_three("B1","B2","B4")
+    assert_equal true, gameboard.cant_place_longer_than_three("B1", "B2", "B3")
   end
 
   def test_cant_overlay_two_unit
@@ -148,14 +149,14 @@ class GameBoardTest < MiniTest::Test
   def test_cant_wrap_horizontally_three_unit
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("D4","D1", "D2")
-    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("A4","A1", "A2")
+    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("D1","D2", "D4")
+    assert_equal false, gameboard.cant_wrap_horizontally_three_unit("A1","A2", "A4")
   end
 
   def test_cant_wrap_vertically_three_unit
     gameboard = GameBoard.new
 
-    assert_equal false, gameboard.cant_wrap_vertically_three_unit("D1", "A1", "B1")
+    assert_equal false, gameboard.cant_wrap_vertically_three_unit("A1", "B1", "D1")
 
   end
 
