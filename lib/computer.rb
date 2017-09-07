@@ -83,6 +83,7 @@ class Computer
   end
 
 
+
   # def change_grid_to_show_placement
   #   x = validate_all_boat_coordinates
   #   x.each_with_index do |element, index|
